@@ -1,4 +1,4 @@
-package com.mobplug.android.glestests.torus;
+package com.mobplug.android.glestests.cubelighting;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -15,13 +15,10 @@ import com.mobplug.android.glestests.glutils.GLBatchFactory;
 import com.mobplug.android.glestests.glutils.GLFrustrum;
 import com.mobplug.android.glestests.glutils.GLShader;
 import com.mobplug.android.glestests.glutils.GLShaderFactory;
-import com.mobplug.android.glestests.glutils.Math3D;
 import com.mobplug.android.glestests.glutils.MatrixStack;
 
-public class TorusRenderer extends AndroidGameRenderer3D<TorusGame> {
+public class CubeLightingRenderer extends AndroidGameRenderer3D<CubeLightingGame> {
     private static String TAG = "GLES20TriangleRenderer";	
-
-    private float[] mMVPMatrix = new float[16];
 
     private GLShader shader;
     private GLBatch glBatch;
@@ -30,36 +27,34 @@ public class TorusRenderer extends AndroidGameRenderer3D<TorusGame> {
     private MatrixStack projectionStack;
     
 	
-	public TorusRenderer(Context context, GLSurfaceView glSurfaceView, TorusGame game) {
+	public CubeLightingRenderer(Context context, GLSurfaceView glSurfaceView, CubeLightingGame game) {
 		super(glSurfaceView, game);
-		glBatch = GLBatchFactory.makeTorus(0.4f, 0.15f, 30, 30);               
+		glBatch = GLBatchFactory.makeCube(0.5f, 0.5f, 0.5f);
 	}
 
 	@Override
 	public void onDrawFrame(GL10 gl) {
-		modelViewStack.push();
-		shader.useShader();
-		
-        checkGlError("glUseProgram");
-		
 		GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
-
-        glBatch.draw(shader.getAttributeLocations());      
-
+		
+		modelViewStack.push();
+		
+		shader.useShader();		
+        checkGlError("glUseProgram");
+		     
         long time = SystemClock.uptimeMillis() % 4000L;
         float angle = 0.090f * ((int) time);
         modelViewStack.translate(0.0f, 0.0f, -2.5f);        
         modelViewStack.rotate(angle, 1, 1, 1.0f);
-        
-        Math3D.matrixMultiply44(mMVPMatrix, projectionStack.getMatrix(), modelViewStack.getMatrix());        
-        
-        shader.setUniformMatrix4("mvpMatrix", false, mMVPMatrix);
-        shader.setUniform4("vColor", 0.0f, 1.0f, 0.0f, 1.0f);
+                        
+        shader.setUniformMatrix4("mvMatrix", false, modelViewStack.getMatrix());
+        shader.setUniformMatrix4("pMatrix", false, projectionStack.getMatrix());
+        shader.setUniform3("vLightPos", -10.0f, -10.0f, 10.0f);               
+        shader.setUniform4("inColor", 0.0f, 1.0f, 0.0f, 1.0f);
 
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
+        glBatch.draw(shader.getAttributeLocations());
         checkGlError("glDrawArrays");	
-        modelViewStack.pop();
-		
+        
+        modelViewStack.pop();		
 	}
 
 	@Override
@@ -72,8 +67,9 @@ public class TorusRenderer extends AndroidGameRenderer3D<TorusGame> {
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		GLES20.glClearColor(0.0f,0.0f,0.0f,0.0f);		
-		shader = GLShaderFactory.getFlatShader();
+		GLES20.glClearColor(0.0f,0.0f,0.0f,0.0f);
+		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+		shader = GLShaderFactory.getPointLightDiffuseShader();
 		viewFrustrum = new GLFrustrum();
 		modelViewStack = new MatrixStack();       	
 	}

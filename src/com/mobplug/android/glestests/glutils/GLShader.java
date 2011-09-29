@@ -101,6 +101,10 @@ public class GLShader {
         int location = getUniformLocation(uniformName);
         GLES20.glUniform3f(location, v1, v2, v3);
     }
+    public void setUniform4(String uniformName, float v1, float v2, float v3, float v4) {
+    	int location = getUniformLocation(uniformName);
+    	GLES20.glUniform4f(location, v1, v2, v3, v4);
+    }
     
     public int getUniformLocation(String uniformName) {
     	if (uniformLocations.containsKey(uniformName))

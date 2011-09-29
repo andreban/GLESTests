@@ -14,24 +14,12 @@ import com.mobplug.android.glestests.glutils.GLBatch;
 import com.mobplug.android.glestests.glutils.GLBatchFactory;
 import com.mobplug.android.glestests.glutils.GLFrustrum;
 import com.mobplug.android.glestests.glutils.GLShader;
+import com.mobplug.android.glestests.glutils.GLShaderFactory;
 import com.mobplug.android.glestests.glutils.Math3D;
 import com.mobplug.android.glestests.glutils.MatrixStack;
 
 public class CubeRenderer extends AndroidGameRenderer3D<CubeGame> {
     private static String TAG = "GLES20TriangleRenderer";	
-
-    private final String mVertexShader =
-        "uniform mat4 uMVPMatrix;\n" +
-        "attribute vec4 inVertex;\n" +
-        "void main() {\n" +
-        "  gl_Position = uMVPMatrix * inVertex;\n" +
-        "}\n";
-
-    private final String mFragmentShader =
-        "precision mediump float;\n" +
-        "void main() {\n" +
-        "  gl_FragColor = vec4(0.0,1.0,0.0,1.0);\n" +
-        "}\n";
 
     private float[] mMVPMatrix = new float[16];
 
@@ -65,7 +53,8 @@ public class CubeRenderer extends AndroidGameRenderer3D<CubeGame> {
         
         Math3D.matrixMultiply44(mMVPMatrix, projectionStack.getMatrix(), modelViewStack.getMatrix());        
         
-        shader.setUniformMatrix4("uMVPMatrix", false, mMVPMatrix);
+        shader.setUniformMatrix4("mvpMatrix", false, mMVPMatrix);
+        shader.setUniform4("vColor", 0.0f, 1.0f, 0.0f, 1.0f);
 
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
         checkGlError("glDrawArrays");	
@@ -84,7 +73,7 @@ public class CubeRenderer extends AndroidGameRenderer3D<CubeGame> {
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		GLES20.glClearColor(0.0f,0.0f,0.0f,0.0f);
-		shader = new GLShader(mVertexShader, mFragmentShader);
+		shader = GLShaderFactory.getFlatShader();
 		viewFrustrum = new GLFrustrum();
 		modelViewStack = new MatrixStack();       	
 	}

@@ -12,7 +12,11 @@ public class MenuActivity extends ListActivity {
 	private static final String[] OPTIONS  = {
 		"Rotating Triangle",
 		"Cube",
-		"Torus"
+		"Torus",
+		"Cube with Lighting",
+		"Torus with Lighting",
+		"Cube with Texture",
+		"Cube with Texture and Lighting"
 	};
 	
 	@Override
@@ -29,6 +33,10 @@ public class MenuActivity extends ListActivity {
 			case 0: intent = new Intent(this, GLESTestsActivity.class); break;
 			case 1: intent = new Intent(this, CubeActivity.class); break;
 			case 2: intent = new Intent(this, TorusActivity.class); break;			
+			case 3: intent = new Intent(this, CubeLightingActivity.class); break;			
+			case 4: intent = new Intent(this, TorusLightingActivity.class); break;			
+			case 5: intent = new Intent(this, CubeTextureActivity.class); break;			
+			case 6: intent = new Intent(this, CubeLightingTextureActivity.class); break;			
 			default: intent = new Intent(this, GLESTestsActivity.class); break;
 		}
 		startActivity(intent);
