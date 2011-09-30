@@ -35,7 +35,7 @@ public class CubeTextureRenderer extends AndroidGameRenderer3D<CubeTextureGame> 
 	public CubeTextureRenderer(Context context, GLSurfaceView glSurfaceView, CubeTextureGame game) {
 		super(glSurfaceView, game);
 		this.context = context;
-		glBatch = GLBatchFactory.makeCube(0.5f, 0.5f, 0.5f);
+		glBatch = GLBatchFactory.makeCube(0.5f, 0.5f, 0.5f);		
 	}
 
 	@Override

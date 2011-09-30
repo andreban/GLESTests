@@ -1,4 +1,4 @@
-package com.mobplug.android.glestests.cubelightingtexture;
+package com.mobplug.android.glestests.disklightingtexture;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -17,7 +17,7 @@ import com.mobplug.android.glestests.glutils.GLShader;
 import com.mobplug.android.glestests.glutils.GLTexture;
 import com.mobplug.android.glestests.glutils.MatrixStack;
 
-public class CubeLightingTextureRenderer extends AndroidGameRenderer3D<CubeLightingTextureGame> {
+public class DiskLightingTextureRenderer extends AndroidGameRenderer3D<DiskLightingTextureGame> {
 	   private static final String VERTEX_SHADER =
            "uniform mat4 mvMatrix;"
            + "uniform mat4 pMatrix;"
@@ -64,10 +64,10 @@ public class CubeLightingTextureRenderer extends AndroidGameRenderer3D<CubeLight
     private MatrixStack modelViewStack;
     private MatrixStack projectionStack;
     	
-	public CubeLightingTextureRenderer(Context context, GLSurfaceView glSurfaceView, CubeLightingTextureGame game) {
+	public DiskLightingTextureRenderer(Context context, GLSurfaceView glSurfaceView, DiskLightingTextureGame game) {
 		super(glSurfaceView, game);
 		this.context = context;
-		glBatch = GLBatchFactory.makeCube(0.5f, 0.5f, 0.5f);		
+		glBatch = GLBatchFactory.makeDisk(0.2f, 0.5f, 26, 13);             		
 	}
 
 	@Override

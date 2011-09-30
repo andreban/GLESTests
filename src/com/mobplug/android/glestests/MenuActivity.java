@@ -16,7 +16,11 @@ public class MenuActivity extends ListActivity {
 		"Cube with Lighting",
 		"Torus with Lighting",
 		"Cube with Texture",
-		"Cube with Texture and Lighting"
+		"Cube with Texture and Lighting",
+		"Sphere with Texture and Lighting",
+		"Cylinder with Texture and Lighting",
+		"Torus with Texture and Lighting",		
+		"Disk with Texture and Lighting"		
 	};
 	
 	@Override
@@ -36,7 +40,11 @@ public class MenuActivity extends ListActivity {
 			case 3: intent = new Intent(this, CubeLightingActivity.class); break;			
 			case 4: intent = new Intent(this, TorusLightingActivity.class); break;			
 			case 5: intent = new Intent(this, CubeTextureActivity.class); break;			
-			case 6: intent = new Intent(this, CubeLightingTextureActivity.class); break;			
+			case 6: intent = new Intent(this, CubeLightingTextureActivity.class); break;
+			case 7: intent = new Intent(this, SphereLightingTextureActivity.class); break;			
+			case 8: intent = new Intent(this, CylinderLightingTextureActivity.class); break;			
+			case 9: intent = new Intent(this, TorusLightingTextureActivity.class); break;			
+			case 10: intent = new Intent(this, DiskLightingTextureActivity.class); break;			
 			default: intent = new Intent(this, GLESTestsActivity.class); break;
 		}
 		startActivity(intent);

@@ -38,8 +38,7 @@ public class TriangleRenderer extends AndroidGameRenderer3D<TriangleGame> {
     
 	
 	public TriangleRenderer(Context context, GLSurfaceView glSurfaceView, TriangleGame game) {
-		super(glSurfaceView, game);
-		glBatch = new SimpleGLBatch(GLES20.GL_TRIANGLES, mTriangleVerticesData, mIndices);
+		super(glSurfaceView, game);		
 	}
 
 	@Override
@@ -79,6 +78,7 @@ public class TriangleRenderer extends AndroidGameRenderer3D<TriangleGame> {
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+		glBatch = new SimpleGLBatch(GLES20.GL_TRIANGLES, mTriangleVerticesData, mIndices);		
 		GLES20.glClearColor(0.0f,0.0f,0.0f,0.0f);
 		shader = GLShaderFactory.getFlatShader();//new GLShader(mVertexShader, mFragmentShader);
 		viewFrustrum = new GLFrustrum();

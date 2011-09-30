@@ -40,5 +40,17 @@
         <activity android:name=".CubeLightingTextureActivity"
                   android:label="@string/app_name">
         </activity> 
+        <activity android:name=".SphereLightingTextureActivity"
+                  android:label="@string/app_name">
+        </activity>    
+        <activity android:name=".CylinderLightingTextureActivity"
+                  android:label="@string/app_name">
+        </activity>   
+        <activity android:name=".TorusLightingTextureActivity"
+                  android:label="@string/app_name">
+        </activity>  
+        <activity android:name=".DiskLightingTextureActivity"
+                  android:label="@string/app_name">
+        </activity>                              
     </application>
 </manifest>

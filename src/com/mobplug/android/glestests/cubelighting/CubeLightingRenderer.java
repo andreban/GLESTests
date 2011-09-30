@@ -29,7 +29,7 @@ public class CubeLightingRenderer extends AndroidGameRenderer3D<CubeLightingGame
 	
 	public CubeLightingRenderer(Context context, GLSurfaceView glSurfaceView, CubeLightingGame game) {
 		super(glSurfaceView, game);
-		glBatch = GLBatchFactory.makeCube(0.5f, 0.5f, 0.5f);
+		glBatch = GLBatchFactory.makeCube(0.5f, 0.5f, 0.5f);		
 	}
 
 	@Override
@@ -66,12 +66,12 @@ public class CubeLightingRenderer extends AndroidGameRenderer3D<CubeLightingGame
 	}
 
 	@Override
-	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+	public void onSurfaceCreated(GL10 gl, EGLConfig config) {		
 		GLES20.glClearColor(0.0f,0.0f,0.0f,0.0f);
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 		shader = GLShaderFactory.getPointLightDiffuseShader();
 		viewFrustrum = new GLFrustrum();
-		modelViewStack = new MatrixStack();       	
+		modelViewStack = new MatrixStack();       		
 	}
 	
     private void checkGlError(String op) {

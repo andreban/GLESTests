@@ -71,6 +71,7 @@ public class GLShader {
                  
         GLES20.glGetProgramiv(program, GLES20.GL_ACTIVE_UNIFORMS, params, 0);
         GLES20.glGetProgramiv(program, GLES20.GL_ACTIVE_UNIFORM_MAX_LENGTH, params, 1);
+
         int numUniforms = params[0];
         int maxUniformLength = params[1];
         namebytes = new byte[maxUniformLength];        

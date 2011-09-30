@@ -1,4 +1,4 @@
-package com.mobplug.android.glestests.cubelightingtexture;
+package com.mobplug.android.glestests.toruslightingtexture;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -17,7 +17,7 @@ import com.mobplug.android.glestests.glutils.GLShader;
 import com.mobplug.android.glestests.glutils.GLTexture;
 import com.mobplug.android.glestests.glutils.MatrixStack;
 
-public class CubeLightingTextureRenderer extends AndroidGameRenderer3D<CubeLightingTextureGame> {
+public class TorusLightingTextureRenderer extends AndroidGameRenderer3D<TorusLightingTextureGame> {
 	   private static final String VERTEX_SHADER =
            "uniform mat4 mvMatrix;"
            + "uniform mat4 pMatrix;"
@@ -64,10 +64,10 @@ public class CubeLightingTextureRenderer extends AndroidGameRenderer3D<CubeLight
     private MatrixStack modelViewStack;
     private MatrixStack projectionStack;
     	
-	public CubeLightingTextureRenderer(Context context, GLSurfaceView glSurfaceView, CubeLightingTextureGame game) {
+	public TorusLightingTextureRenderer(Context context, GLSurfaceView glSurfaceView, TorusLightingTextureGame game) {
 		super(glSurfaceView, game);
 		this.context = context;
-		glBatch = GLBatchFactory.makeCube(0.5f, 0.5f, 0.5f);		
+		glBatch = GLBatchFactory.makeTorus(0.4f, 0.15f, 30, 30);       		
 	}
 
 	@Override
