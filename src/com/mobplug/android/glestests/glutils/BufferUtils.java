@@ -19,4 +19,9 @@ public class BufferUtils {
 		ByteBuffer bf = ByteBuffer.allocateDirect(size * 4);
 		return bf.order(ByteOrder.nativeOrder()).asIntBuffer();
 	}	
+	
+	public static ByteBuffer createByteBuffer(int size) {
+		ByteBuffer bf = ByteBuffer.allocateDirect(size);
+		return bf.order(ByteOrder.nativeOrder());
+	}
 }

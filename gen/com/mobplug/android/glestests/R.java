@@ -17,7 +17,11 @@ public final class R {
         public static final int main=0x7f030000;
     }
     public static final class raw {
-        public static final int robot=0x7f040000;
+        public static final int brick=0x7f040000;
+        public static final int robot=0x7f040001;
+        public static final int water_can=0x7f040002;
+        public static final int watercan=0x7f040003;
+        public static final int watercan_dmg=0x7f040004;
     }
     public static final class string {
         public static final int app_name=0x7f050001;

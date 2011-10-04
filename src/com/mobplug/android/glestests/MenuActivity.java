@@ -1,5 +1,7 @@
 package com.mobplug.android.glestests;
 
+import com.mobplug.android.glestests.glutils.models.md3.Md3ModelLoader;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +22,10 @@ public class MenuActivity extends ListActivity {
 		"Sphere with Texture and Lighting",
 		"Cylinder with Texture and Lighting",
 		"Torus with Texture and Lighting",		
-		"Disk with Texture and Lighting"		
+		"Disk with Texture and Lighting",
+		"Cube with TGA Texture",
+		"md3 Model",
+		"md3 Model Texture"
 	};
 	
 	@Override
@@ -28,6 +33,11 @@ public class MenuActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, OPTIONS);
 		setListAdapter(adapter);
+		try {
+			new Md3ModelLoader().loadModel(this);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -45,6 +55,9 @@ public class MenuActivity extends ListActivity {
 			case 8: intent = new Intent(this, CylinderLightingTextureActivity.class); break;			
 			case 9: intent = new Intent(this, TorusLightingTextureActivity.class); break;			
 			case 10: intent = new Intent(this, DiskLightingTextureActivity.class); break;			
+			case 11: intent = new Intent(this, TGACubeTextureActivity.class); break;			
+			case 12: intent = new Intent(this, Md3ModelActivity.class); break;			
+			case 13: intent = new Intent(this, Md3ModelTextureActivity.class); break;			
 			default: intent = new Intent(this, GLESTestsActivity.class); break;
 		}
 		startActivity(intent);

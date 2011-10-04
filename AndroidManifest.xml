@@ -48,9 +48,18 @@
         </activity>   
         <activity android:name=".TorusLightingTextureActivity"
                   android:label="@string/app_name">
-        </activity>  
+        </activity>    
         <activity android:name=".DiskLightingTextureActivity"
                   android:label="@string/app_name">
-        </activity>                              
+        </activity>
+		<activity android:name=".TGACubeTextureActivity"
+                  android:label="@string/app_name">
+        </activity>   
+		<activity android:name=".Md3ModelActivity"
+                  android:label="@string/app_name">
+        </activity>
+        <activity android:name=".Md3ModelTextureActivity"
+                  android:label="@string/app_name">
+        </activity> 
     </application>
 </manifest>
