@@ -98,6 +98,11 @@ public class GLShader {
         GLES20.glUniformMatrix4fv(location, 1, traverse, matrixdata, 0);        
     }
     
+	public void setUniformMatrix3(String uniformName, boolean traverse, float[] matrixdata) {
+        int location = getUniformLocation(uniformName);     
+        GLES20.glUniformMatrix3fv(location, 1, traverse, matrixdata, 0);
+		
+	}    
     public void setUniform3(String uniformName, float v1, float v2, float v3) {
         int location = getUniformLocation(uniformName);
         GLES20.glUniform3f(location, v1, v2, v3);
@@ -105,6 +110,11 @@ public class GLShader {
     public void setUniform4(String uniformName, float v1, float v2, float v3, float v4) {
     	int location = getUniformLocation(uniformName);
     	GLES20.glUniform4f(location, v1, v2, v3, v4);
+    }
+    
+    public void setUniform1i(String uniformName, int value) {
+    	int location = getUniformLocation(uniformName);
+    	GLES20.glUniform1i(location, value);
     }
     
     public int getUniformLocation(String uniformName) {

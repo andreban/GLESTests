@@ -25,7 +25,8 @@ public class MenuActivity extends ListActivity {
 		"Disk with Texture and Lighting",
 		"Cube with TGA Texture",
 		"md3 Model",
-		"md3 Model Texture"
+		"md3 Model Texture",
+		"Torus Toon Shader",		
 	};
 	
 	@Override
@@ -58,6 +59,7 @@ public class MenuActivity extends ListActivity {
 			case 11: intent = new Intent(this, TGACubeTextureActivity.class); break;			
 			case 12: intent = new Intent(this, Md3ModelActivity.class); break;			
 			case 13: intent = new Intent(this, Md3ModelTextureActivity.class); break;			
+			case 14: intent = new Intent(this, TorusToonShaderActivity.class); break;			
 			default: intent = new Intent(this, GLESTestsActivity.class); break;
 		}
 		startActivity(intent);

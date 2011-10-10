@@ -191,20 +191,48 @@ public class Math3D {
    }
    
    public static float getVectorLengthSquared3(float[] vec) {
-       return (vec[0] * vec[0]) + (vec[1] * vec[1]) + (vec[2] * vec[2]);
+       return getVectorLengthSquared3(vec, 0);
+   }    
+   
+   public static float getVectorLengthSquared3(float[] vec, int start) {
+       return (vec[start] * vec[start]) + (vec[start + 1] * vec[start + 1]) + (vec[start + 2] * vec[start + 2]);
    }   
    
+   public static void scaleVector3(float[] vec, float scale, int start) {
+       vec[start] *= scale;
+       vec[start + 1] *= scale;
+       vec[start + 2] *= scale;
+   }
+   
    public static void scaleVector3(float[] vec, float scale) {
-       vec[0] *= scale;
-       vec[1] *= scale;
-       vec[2] *= scale;
+       scaleVector3(vec, scale, 0);
+   }
+   
+   public static float getVectorLength3(float[] vec, int start) {
+       return (float)Math.sqrt(getVectorLengthSquared3(vec, start));        
    }
    
    public static float getVectorLength3(float[] vec) {
        return (float)Math.sqrt(getVectorLengthSquared3(vec));
    }
    
-   public static void normalizeVector3(float[] vec) {
-       scaleVector3(vec, 1.0f / getVectorLength3(vec));
+   public static void normalizeVector3(float[] vec, int start) {
+       scaleVector3(vec, 1.0f / getVectorLength3(vec, start), start);      
    }
+   
+   public static void normalizeVector3(float[] vec) {
+       normalizeVector3(vec, 0);
+   }
+   
+   public static void extractRotationMatrix33(float[] result, float[] matrix) {
+       System.arraycopy(matrix, 0, result, 0, 3);
+       System.arraycopy(matrix, 4, result, 3, 3);        
+       System.arraycopy(matrix, 8, result, 6, 3);                
+   }
+
+   public static void extractRotationMatrix33(double[] result, double[] matrix) {
+       System.arraycopy(matrix, 0, result, 0, 3);
+       System.arraycopy(matrix, 4, result, 3, 3);        
+       System.arraycopy(matrix, 8, result, 6, 3);                   
+   }    
 }
