@@ -1,6 +1,6 @@
 package com.mobplug.android.glestests.torustoonshader;
 
-import java.nio.ShortBuffer;
+import java.nio.ByteBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -116,13 +116,13 @@ public class TorusToonShaderRenderer extends AndroidGameRenderer3D<TorusToonShad
 		GLES20.glGenTextures(1, textures, 0);
 		textureid = textures[0];
 		
-		short[] colorTable = {
+		byte[] colorTable = {
 				32, 0, 0,
 				64, 0, 0,
-				128, 0, 0,
-				255, 0, 0
+				(byte)128, 0, 0,
+				(byte)255, 0, 0
 		};
-		ShortBuffer buff = BufferUtils.createShortBuffer(colorTable.length);
+		ByteBuffer buff = BufferUtils.createByteBuffer(colorTable.length);
 		buff.put(colorTable);
 		buff.flip();
 		

@@ -1,6 +1,10 @@
 package com.mobplug.android.glestests.glutils;
 
-import java.io.*;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * <p>Data input class with low level binary IO operations. The

@@ -1,7 +1,5 @@
 package com.mobplug.android.glestests;
 
-import com.mobplug.android.glestests.glutils.models.md3.Md3ModelLoader;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.mobplug.android.glestests.glutils.models.md3.Md3ModelLoader;
 
 public class MenuActivity extends ListActivity {
 	private static final String[] OPTIONS  = {
