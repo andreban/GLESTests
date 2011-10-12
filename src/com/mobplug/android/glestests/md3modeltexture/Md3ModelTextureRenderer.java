@@ -82,7 +82,7 @@ public class Md3ModelTextureRenderer extends AndroidGameRenderer3D<Md3ModelTextu
 		shader = GLShaderFactory.getTextureReplaceShader();
 		viewFrustrum = new GLFrustrum();
 		modelViewStack = new MatrixStack();   
-		texture0 = new TGATexture(context, R.raw.brick);				
+		texture0 = new TGATexture(context, R.raw.water_can);				
 	}
 	
     private void checkGlError(String op) {

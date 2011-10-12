@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.mobplug.android.glestests.glutils.models.md3.Md3ModelLoader;
-
 public class MenuActivity extends ListActivity {
 	private static final String[] OPTIONS  = {
 		"Rotating Triangle",
@@ -34,11 +32,6 @@ public class MenuActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, OPTIONS);
 		setListAdapter(adapter);
-		try {
-			new Md3ModelLoader().loadModel(this);
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}
 	}
 	
 	@Override

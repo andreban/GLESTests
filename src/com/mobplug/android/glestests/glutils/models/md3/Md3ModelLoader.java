@@ -200,22 +200,16 @@ public class Md3ModelLoader {
     private void readTriangle(DataInputStream din, short[] indexes, int pos) throws IOException {
         indexes[pos * 3] = (short)Integer.reverseBytes(din.readInt());
         indexes[pos * 3 + 1]  = (short)Integer.reverseBytes(din.readInt());
-        indexes[pos * 3 + 2]  = (short)Integer.reverseBytes(din.readInt());        
-        
-//        int[] indexes = new int[3];
-//        for (int i = 0 ; i < indexes.length; i++)
-//            indexes[i] = Integer.reverseBytes(din.readInt());
-//        System.out.println(String.format("index: %d, %d, %d",indexes[0],indexes[1], indexes[2]));                      
+        indexes[pos * 3 + 2]  = (short)Integer.reverseBytes(din.readInt());                                      
     }
-
+    
+    private float readFloat(DataInputStream din) throws IOException {
+        return Float.intBitsToFloat(Integer.reverseBytes(din.readInt()));
+    }
+    
     private void readTexCoord(DataInputStream din, float[] texCoords, int pos) throws IOException {
-    	texCoords[pos * 2] = din.readFloat();
-    	texCoords[pos * 2 + 1] = 1 - din.readFloat();
-//        float[] coords = new float[2];
-//        coords[0] = din.readFloat();
-//        coords[1] = din.readFloat();
-//        
-        System.out.println(String.format("Tex Coords: %f, %f", texCoords[pos * 2], texCoords[pos * 2 + 1]));
+    	texCoords[pos * 2] = readFloat(din);
+    	texCoords[pos * 2 + 1] = readFloat(din);    	        
     }
 
     private void readVertex(DataInputStream din, float[] vertices, float[] vNormals, int pos) throws IOException {
