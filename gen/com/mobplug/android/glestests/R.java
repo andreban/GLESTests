@@ -18,10 +18,16 @@ public final class R {
     }
     public static final class raw {
         public static final int brick=0x7f040000;
-        public static final int robot=0x7f040001;
-        public static final int water_can=0x7f040002;
-        public static final int watercan=0x7f040003;
-        public static final int watercan_dmg=0x7f040004;
+        public static final int headorange=0x7f040001;
+        public static final int ironhead=0x7f040002;
+        public static final int ironlegs=0x7f040003;
+        public static final int irontorso=0x7f040004;
+        public static final int lowerorange=0x7f040005;
+        public static final int robot=0x7f040006;
+        public static final int upperorange=0x7f040007;
+        public static final int water_can=0x7f040008;
+        public static final int watercan=0x7f040009;
+        public static final int watercan_dmg=0x7f04000a;
     }
     public static final class string {
         public static final int app_name=0x7f050001;
