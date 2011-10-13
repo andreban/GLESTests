@@ -66,6 +66,7 @@ public class Md3LoaderRenderer extends AndroidGameRenderer3D<Md3LoaderGame> {
 		super(glSurfaceView, game);
 		md3Model = new Md3Model();
 		this.context = context;
+		
 	}
 
 	@Override
@@ -80,8 +81,10 @@ public class Md3LoaderRenderer extends AndroidGameRenderer3D<Md3LoaderGame> {
       
 //        long time = SystemClock.uptimeMillis() % 4000L;
 //        float angle = 0.090f * ((int) time);
-        modelViewStack.translate(0.0f, -50.0f, -300.5f);        
-//        modelViewStack.rotate(angle, 1, 1, 1.0f);
+        modelViewStack.translate(0.0f, 0.0f, -300.5f);        
+        modelViewStack.rotate(game.getXRotation(), 0.0f, 1.0f, 0.0f);
+        modelViewStack.rotate(game.getYRotation(), 1.0f, 0.0f, 0.0f);
+        modelViewStack.translate(0.0f, -50.0f, 0.0f);        
                 
         
 //        shader.setUniformMatrix4("mvMatrix", false, modelViewStack.getMatrix());
