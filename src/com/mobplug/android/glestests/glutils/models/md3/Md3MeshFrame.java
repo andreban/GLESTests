@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.microedition.khronos.opengles.GL11;
 
 import com.mobplug.android.glestests.glutils.GLBatch;
-import com.mobplug.android.glestests.glutils.SimpleGLBatch;
+import com.mobplug.android.glestests.glutils.VBOGLBatch;
 
 /**
  *
@@ -23,7 +23,7 @@ public class Md3MeshFrame {
 //        this.normalData = normalData;
 //        this.texCoordData = texCoordData;
 //        this.triangleIndexes = triangleIndexes;
-        glBatch = new SimpleGLBatch(GL11.GL_TRIANGLES, vertexData, null, normalData, texCoordData, triangleIndexes);
+        glBatch = new VBOGLBatch(GL11.GL_TRIANGLES, vertexData, null, normalData, texCoordData, triangleIndexes);
     }
     
 //    public float[] getNormalData() {

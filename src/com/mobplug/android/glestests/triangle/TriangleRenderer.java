@@ -16,7 +16,7 @@ import com.mobplug.android.glestests.glutils.GLShader;
 import com.mobplug.android.glestests.glutils.GLShaderFactory;
 import com.mobplug.android.glestests.glutils.Math3D;
 import com.mobplug.android.glestests.glutils.MatrixStack;
-import com.mobplug.android.glestests.glutils.SimpleGLBatch;
+import com.mobplug.android.glestests.glutils.VBOGLBatch;
 
 public class TriangleRenderer extends AndroidGameRenderer3D<TriangleGame> {
     private static String TAG = "GLES20TriangleRenderer";	
@@ -78,7 +78,7 @@ public class TriangleRenderer extends AndroidGameRenderer3D<TriangleGame> {
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		glBatch = new SimpleGLBatch(GLES20.GL_TRIANGLES, mTriangleVerticesData, mIndices);		
+		glBatch = new VBOGLBatch(GLES20.GL_TRIANGLES, mTriangleVerticesData, mIndices);		
 		GLES20.glClearColor(0.0f,0.0f,0.0f,0.0f);
 		shader = GLShaderFactory.getFlatShader();//new GLShader(mVertexShader, mFragmentShader);
 		viewFrustrum = new GLFrustrum();
