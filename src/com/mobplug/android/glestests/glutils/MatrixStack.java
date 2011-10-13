@@ -12,9 +12,6 @@ public class MatrixStack {
 	
 	private float[][] matrixStack;
 	private int topIndex = 0;
-    //TODO is it possible to come up with a better solution regarding performance??
-//    private LinkedList<float[]> matrixStack = new LinkedList<float[]>();
-//    private float[] matrix = new float[16];
     
     //temp matrix. Avoiding garbage collection on operations!
     private float[] temp = new float[16];
@@ -50,6 +47,21 @@ public class MatrixStack {
         Math3D.matrixMultiply44(matrixStack[topIndex], temp, temp2); //multiply and put result.
     }
     
+    public void multiply3(float[] op) {
+        System.arraycopy(matrixStack[topIndex], 0, temp, 0, 16);//save current matrix       
+        Math3D.loadIdentity44(temp2);
+        for (int i = 0; i < 3; i++) {
+            temp2[i * 4] = op[i * 3]; 
+            temp2[i * 4 + 1] = op[i * 3 + 1]; 
+            temp2[i * 4 + 2] = op[i * 3 + 2]; 
+        }
+        Math3D.matrixMultiply44(matrixStack[topIndex], temp, temp2);
+    }
+    
+    public void multiply4(float[] op) {
+        System.arraycopy(matrixStack[topIndex], 0, temp, 0, 16);//save current matrix                
+        Math3D.matrixMultiply44(matrixStack[topIndex], temp, op);        
+    }    
     public float[] getMatrix() {
         return matrixStack[topIndex];
     }
