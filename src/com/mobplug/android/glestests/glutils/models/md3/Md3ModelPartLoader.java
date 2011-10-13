@@ -170,6 +170,7 @@ public class Md3ModelPartLoader {
                 }
                 Md3MeshFrame frame = new Md3MeshFrame(vertexData, normalData, texCoordData, indices);                
                 mesh.addFrame(frame);
+                System.gc();
                 break;
             }
             modelPart.addMesh(mesh);         
