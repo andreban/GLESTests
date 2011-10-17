@@ -6,6 +6,7 @@ import java.nio.ShortBuffer;
 import java.util.Map;
 
 import android.opengl.GLES20;
+import android.util.Log;
 
 
 /**
@@ -25,6 +26,17 @@ public class VBOGLBatch implements GLBatch {
     
     public VBOGLBatch(int mode, float[] vVertexData, short[] vIndexData) {
         this(mode, vVertexData, null, null, null, vIndexData);
+    }
+    
+    public VBOGLBatch(int mode, int numElements, int vertexBufferId, int colorBufferId,
+    		int normalBufferId, int textCoordBufferId, int indexBufferId) {
+    	this.numElements = numElements;
+    	this.mode = mode;
+    	this.vertexBufferId = vertexBufferId;
+    	this.colorBufferId = colorBufferId;
+    	this.normalBufferId = normalBufferId;
+    	this.textCoordBufferId = textCoordBufferId;
+    	this.indexBufferId = indexBufferId;
     }
     
     public VBOGLBatch(int mode, float[] vVertexData, float[] vColorData,
@@ -91,15 +103,17 @@ public class VBOGLBatch implements GLBatch {
     public void draw(Map<String, Integer> params) {
         int inVertexLocation = params.get("inVertex");
     	GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vertexBufferId);        
-    	fix.android.opengl.GLES20.glVertexAttribPointer(inVertexLocation, 4, GLES20.GL_FLOAT, false, 4 * 4, 0);
+    	fix.android.opengl.GLES20.glVertexAttribPointer(inVertexLocation, 4, GLES20.GL_FLOAT, false, 4 * 4, 0);    	    
 //        GLES20.glVertexAttribPointer(inVertexLocation, 4, GLES20.GL_FLOAT, false, 4 * 4, 0);
         GLES20.glEnableVertexAttribArray(inVertexLocation);
+        checkGlError("vertexarray");        
         
         if (params.containsKey("inNormal")) {
             int normalLocation = params.get("inNormal");
         	GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, normalBufferId);            
         	fix.android.opengl.GLES20.glVertexAttribPointer(normalLocation, 3, GLES20.GL_FLOAT, false, 3 * 4, 0);
             GLES20.glEnableVertexAttribArray(normalLocation);
+            checkGlError("normalarray");            
         }
         
         if (params.containsKey("inColor")) {
@@ -117,6 +131,16 @@ public class VBOGLBatch implements GLBatch {
         }           
         //Draw triangle
     	GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, indexBufferId);
-    	fix.android.opengl.GLES20.glDrawElements(mode, numElements, GLES20.GL_UNSIGNED_SHORT, 0);           
+    	fix.android.opengl.GLES20.glDrawElements(mode, numElements, GLES20.GL_UNSIGNED_SHORT, 0);   
+        checkGlError("indexarray");    	
     }
+    
+    private static final String TAG = "VBOGLBatch";
+    private void checkGlError(String op) {
+        int error;
+        while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
+            Log.e(TAG, op + ": glError " + error);
+            throw new RuntimeException(op + ": glError " + error);
+        }
+    }	    
 }

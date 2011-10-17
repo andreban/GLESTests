@@ -25,7 +25,8 @@ public class MenuActivity extends ListActivity {
 		"md3 Model",
 		"md3 Model Texture",
 		"Torus Toon Shader",
-		"md3 Loader"
+		"md3 Loader",
+		"Tunnels 1"
 	};
 	
 	@Override
@@ -55,6 +56,7 @@ public class MenuActivity extends ListActivity {
 			case 13: intent = new Intent(this, Md3ModelTextureActivity.class); break;			
 			case 14: intent = new Intent(this, TorusToonShaderActivity.class); break;			
 			case 15: intent = new Intent(this, Md3LoaderActivity.class); break;			
+			case 16: intent = new Intent(this, Tunnels1Activity.class); break;			
 			default: intent = new Intent(this, GLESTestsActivity.class); break;
 		}
 		startActivity(intent);
