@@ -1,8 +1,19 @@
 package com.mobplug.android.glestests.glutils.models.md3;
 
+import static android.opengl.GLES20.GL_ARRAY_BUFFER;
+import static android.opengl.GLES20.GL_ELEMENT_ARRAY_BUFFER;
+import static android.opengl.GLES20.glBindBuffer;
+import static android.opengl.GLES20.glBufferData;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
+
+import com.mobplug.android.glestests.glutils.BufferUtils;
+
+import android.opengl.GLES20;
 
 /**
  *
@@ -110,7 +121,7 @@ public class Md3ModelPartLoader {
             
             int ident = din.readInt();
             if (ident != SURFACE_START) {
-            throw new Md3Exception(String.format("Invalid Surface ID Version. Found %d, Expected %d", ident, SURFACE_START));
+            	throw new Md3Exception(String.format("Invalid Surface ID Version. Found %d, Expected %d", ident, SURFACE_START));
             }
             
             String meshName = readString(din, 64);
@@ -158,17 +169,42 @@ public class Md3ModelPartLoader {
                 readTexCoord(din, texCoordData, j);
             }
             
+            int[] buffid = new int[1];
+            
+            GLES20.glGenBuffers(1, buffid, 0);
+            int indicesBufferfId = buffid[0];
+            ShortBuffer indexData = BufferUtils.createShortBuffer(indices.length);        
+            fillElementArrayBuffer(indicesBufferfId, indices, indexData);            
+            
+            GLES20.glGenBuffers(1, buffid, 0);
+            int texCoordBufferId = buffid[0];            
+            FloatBuffer texCoordBuffer = BufferUtils.createFloatBuffer(texCoordData.length);
+            fillArrayBuffer(texCoordBufferId, texCoordData, texCoordBuffer);
+                        
             din.reset();
             din.skip(meshesOffset + xyznOffset);
+            
             float[] vertexData = new float[numVerts * 4];
+            FloatBuffer vertexBuff = BufferUtils.createFloatBuffer(numVerts * 4);
+            
             float[] normalData = new float[numVerts * 3];
+            FloatBuffer normalBuff = BufferUtils.createFloatBuffer(numVerts * 3);            
             
             for (int k = 0; k < numMeshFrames; k++) {
 
                 for (int j = 0; j < numVerts; j++) {
                     readVertex(din, vertexData, normalData, j, invertYZ);
                 }
-                Md3MeshFrame frame = new Md3MeshFrame(vertexData, normalData, texCoordData, indices);                
+                
+                GLES20.glGenBuffers(1, buffid, 0);
+                int vertexBufferId = buffid[0];   
+                fillArrayBuffer(vertexBufferId, vertexData, vertexBuff);                
+                
+                GLES20.glGenBuffers(1, buffid, 0);
+                int normalBufferId = buffid[0];  
+                fillArrayBuffer(normalBufferId, normalData, normalBuff);                
+                
+                Md3MeshFrame frame = new Md3MeshFrame(indices.length, vertexBufferId, normalBufferId, texCoordBufferId, indicesBufferfId);                
                 mesh.addFrame(frame);
                 System.gc();
                 break;
@@ -178,6 +214,21 @@ public class Md3ModelPartLoader {
         return modelPart;
     } 
     
+    private void fillArrayBuffer(int bufferid, float[] data, FloatBuffer buffer) {
+    	buffer.position(0);
+    	buffer.put(data);
+    	buffer.flip();
+    	glBindBuffer(GL_ARRAY_BUFFER, bufferid);
+    	glBufferData(GL_ARRAY_BUFFER, data.length * 4, buffer, GLES20.GL_STATIC_DRAW);
+    }
+    
+    private void fillElementArrayBuffer(int bufferid, short[] data, ShortBuffer buffer) {
+    	buffer.position(0);
+        buffer.put(data);
+        buffer.flip();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferid);        
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.length * 2, buffer, GLES20.GL_STATIC_DRAW);    	
+    }
     private void readShader(DataInputStream file) throws IOException {
         String name = readString(file, 64);
         System.out.println("Shader Name " + name);
