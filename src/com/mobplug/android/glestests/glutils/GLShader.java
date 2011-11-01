@@ -16,10 +16,12 @@ public class GLShader {
     private Map<String, Integer> uniformLocations = new HashMap<String, Integer>();
     
     private int program = -1;
+    private int vertexShader = -1;
+    private int fragmentShader = -1;
         
     public GLShader(String vertexShaderSource, String fragmentShaderSource) {
         //Vertex shader
-        int vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
+        vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
         GLES20.glShaderSource(vertexShader, vertexShaderSource);
         GLES20.glCompileShader(vertexShader);
  
@@ -29,7 +31,7 @@ public class GLShader {
         }
   
         //Fragment shader
-        int fragmentShader = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
+        fragmentShader = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
         GLES20.glShaderSource(fragmentShader, fragmentShaderSource);
         GLES20.glCompileShader(fragmentShader);
  
@@ -132,5 +134,21 @@ public class GLShader {
       
     public int getProgram() {
         return program;
+    }
+    
+    private void delete() {
+    	GLES20.glDeleteProgram(program);
+    	GLES20.glDeleteShader(vertexShader);
+    	GLES20.glDeleteShader(fragmentShader);    	
+    }
+    
+    @Override
+    protected void finalize() throws Throwable {
+    	try {
+    		delete();
+    	} catch(RuntimeException ex) {
+    		Log.e(TAG, "Error deleting shaders", ex);
+    	}
+    	super.finalize();
     }
 }

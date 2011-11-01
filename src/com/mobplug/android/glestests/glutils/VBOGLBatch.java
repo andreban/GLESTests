@@ -14,6 +14,7 @@ import android.util.Log;
  * @author andreban
  */
 public class VBOGLBatch implements GLBatch {
+    private static final String TAG = "VBOGLBatch";	
     private int mode = GLES20.GL_TRIANGLES;
     
     private int vertexBufferId = -1;
@@ -135,7 +136,45 @@ public class VBOGLBatch implements GLBatch {
         checkGlError("indexarray");    	
     }
     
-    private static final String TAG = "VBOGLBatch";
+    private void deleteBuffers() {
+    	int[] buffers = new int[1];
+    	if (vertexBufferId >= 0) {
+    		buffers[0] = vertexBufferId;
+        	GLES20.glDeleteBuffers(1, buffers, 0);    		
+    	}
+    	
+    	if (colorBufferId >= 0) {
+    		buffers[0] = colorBufferId;
+        	GLES20.glDeleteBuffers(1, buffers, 0);    		
+    	}
+    	
+    	if (normalBufferId >= 0) {
+    		buffers[0] = normalBufferId;
+        	GLES20.glDeleteBuffers(1, buffers, 0);    		
+    	}
+    	
+    	if (textCoordBufferId >= 0) {
+    		buffers[0] = textCoordBufferId;
+        	GLES20.glDeleteBuffers(1, buffers, 0);    		
+    	}
+    	
+    	if (indexBufferId >= 0) {
+    		buffers[0] = indexBufferId;
+        	GLES20.glDeleteBuffers(1, buffers, 0);    		
+    	}    	
+
+    }
+    
+    @Override
+    protected void finalize() throws Throwable {
+    	try {
+    		deleteBuffers();
+    	} catch(RuntimeException ex) {
+    		Log.e(TAG, "Error Deleting Buffers", ex);
+    	}
+    	super.finalize();
+    }
+    
     private void checkGlError(String op) {
         int error;
         while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {

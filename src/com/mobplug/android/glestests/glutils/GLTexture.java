@@ -8,9 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
+import android.util.Log;
 
 public class GLTexture {
-	private int mTextureID;
+	private int mTextureID = -1;
 	public GLTexture(Context context, int resourceid) {
 		int[] textures = new int[1];
         GLES20.glGenTextures(1, textures, 0);
@@ -47,7 +48,25 @@ public class GLTexture {
 	}
 	
 	public void useTexture(int textureid) {
+		if (mTextureID == -1) throw new IllegalStateException("Illegal Texture. Already deleted?");
 		GLES20.glActiveTexture(textureid);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextureID);  		
+	}
+	
+	private void delete() {
+		int[] textures = new int[1];
+		textures[0] = mTextureID;
+		GLES20.glDeleteTextures(1, textures, 0);
+		mTextureID = -1;
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		try {
+			delete();
+		} catch(RuntimeException ex) {
+			Log.e("GLTexture", "Error deleting Texture", ex);
+		}
+		super.finalize();
 	}
 }
